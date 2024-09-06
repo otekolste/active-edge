@@ -1,116 +1,31 @@
-const router = require('express').Router();
-const { Answer, Question, Tag, User } = require('../models');
+const express = require('express');
+const router = express.Router();
 
-// GET all questions
-router.get('/questions', async (req, res) => {
-  try {
-    const questions = await Question.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['username'],
-        },
-        {
-          model: Answer,
-          include: {
-            model: User,
-            attributes: ['username'],
-          },
-        },
-        {
-          model: Tag,
-          attributes: ['name'],
-        },
-      ],
-    });
-    res.status(200).json(questions);
-  } catch (err) {
-    res.status(500).json(err);
-  }
+// html Landing page route
+router.get('/', (req, res) => {
+  // Render the landing page (e.g., Handlebars view)
+  res.render('landing', {
+    title: 'Welcome to Answer-Hive!',
+  });
+});
+//html route for the login page with a simple title
+router.get('/login', (req, res) => {
+  res.render('login', {
+    title: 'Login to the Answer-Hive!',
+  });
 });
 
-//GET a single question by ID
-router.get('/questions/:id', async (req, res) => {
-  try {
-    const question = await Question.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ['username'],
-        },
-        {
-          model: Answer,
-          include: {
-            model: User,
-            attributes: ['username'],
-          },
-        },
-        {
-          model: Tag,
-          attributes: ['name'],
-        },
-      ],
-    });
-    if (!question) {
-      res.status(404).json({ message: 'No question found with this id' });
-      return;
-    }
-    res.status(200).json(question);
-  } catch (err) {
-    res.status(500).json(err);
-  }
+//html route for sign up page
+router.get('/signup', (req, res) => {
+  res.render('signup', {
+    title: 'Sign up for Answer-Hive!',
+  });
 });
 
-//GET all answers
-router.get('/answers', async (req, res) => {
-  try {
-    const answers = await Answer.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['username'],
-        },
-        {
-          model: Question,
-          attributes: ['title'], //Include related question title (optional)
-        },
-        {
-          model: Tag,
-          attributes: ['name'],
-        },
-      ],
-    });
-    res.status(200).json(questions);
-  } catch (err) {
-    res.status(500).json(err);
-  }
+router.get('/dashboard', (req, res) => {
+  res.render('dashboard', {
+    title: 'Welcome to the Hive Bee!',
+  });
 });
 
-//GET answer by id
-router.get('/answer/:id', async (req, res) => {
-  try {
-    const answer = await Answer.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attribute: ['username'],
-        },
-        {
-          model: Question,
-          attribute: ['title'],
-        },
-        {
-          model: Tag,
-          attribute: ['name'],
-        },
-      ],
-    });
-    if (!answer) {
-      res.status(404).json({ message: 'No answer found with this id' });
-      return;
-    }
-    res.status(200).json(answer);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+module.exports = router;
