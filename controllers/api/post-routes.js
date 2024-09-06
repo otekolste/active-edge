@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Answer, Question, Tag, User } = require('../models');
+const { Answer, Question, Tag, User } = require('../../models');
 
 // GET all questions
 router.get('/questions', async (req, res) => {
@@ -114,3 +114,5 @@ router.get('/answer/:id', async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+module.exports = router;
