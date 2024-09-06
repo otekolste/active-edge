@@ -18,7 +18,7 @@ Tag.init({
   timestamps: false,
   freezeTableName: true,
   underscored: true,
-  modelName: "user",
+  modelName: "tag",
 });
 
 module.exports = Tag;
