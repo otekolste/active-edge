@@ -1,20 +1,18 @@
-const { Question } = require("../models");
+const { Question } = require('../models');
 
-const questiondata = [
+const questionData = [
   {
-    id: "",
-    createdDate: "",
-    content: "",
-    user_id: "",
+    content: 'What is the difference between let and const in JavaScript?',
+    user_id: 1, // Replace with valid user ID
+    createdDate: new Date(), // Current timestamp
   },
   {
-    id: "",
-    createdDate: "",
-    content: "",
-    user_id: "",
+    content: 'How do you create a REST API using Express?',
+    user_id: 2, // Replace with valid user ID
+    createdDate: new Date(), // Current timestamp
   },
 ];
 
-const seedQuestions = () => Question.bulkCreate(questiondata);
+const seedQuestions = () => Question.bulkCreate(questionData);
 
 module.exports = seedQuestions;

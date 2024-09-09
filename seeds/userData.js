@@ -1,20 +1,19 @@
-const { User } = require("../models");
+const { User } = require('../models');
+const bcrypt = require('bcrypt');
 
-const userdata = [
+const userData = [
   {
-    id: "",
-    username: "",
-    email: "",
-    password: "",
+    username: 'john_doe',
+    email: 'john@example.com',
+    password: bcrypt.hashSync('password123', 10), // Hashing the password
   },
   {
-    id: "",
-    username: "",
-    email: "",
-    password: "",
+    username: 'jane_doe',
+    email: 'jane@example.com',
+    password: bcrypt.hashSync('password456', 10), // Hashing the password
   },
 ];
 
-const seedUsers = () => Question.bulkCreate(userdata);
+const seedUsers = () => User.bulkCreate(userData);
 
 module.exports = seedUsers;

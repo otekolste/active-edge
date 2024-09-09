@@ -1,16 +1,20 @@
-const { Tag } = require("../models");
+const { Tag } = require('../models');
 
-const tagdata = [
+const tagData = [
   {
-    id: "",
-    name: "",
+    name: 'JavaScript',
   },
   {
-    id: "",
-    name: "",
+    name: 'Node.js',
+  },
+  {
+    name: 'Sequelize',
+  },
+  {
+    name: 'Express',
   },
 ];
 
-const seedTags = () => Question.bulkCreate(tagdata);
+const seedTags = () => Tag.bulkCreate(tagData);
 
 module.exports = seedTags;
