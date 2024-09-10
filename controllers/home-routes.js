@@ -33,7 +33,6 @@ router.get("/dashboard", async (req, res) => {
         },
         {
           model: Tag,
-          attributes: ["name"],
         },
       ],
       order: [["createdDate", "DESC"]],
