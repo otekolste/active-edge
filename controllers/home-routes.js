@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Question, User, Answer, Tag } = require("../models");
+const { Question, User, Answer, Tag, QuestionTag } = require("../models");
 
 // html Landing page route
 router.get("/", (req, res) => {
@@ -25,7 +25,6 @@ router.get("/signup", (req, res) => {
 
 router.get("/dashboard", async (req, res) => {
   try {
-    console.log("hi!");
     const questionData = await Question.findAll({
       include: [
         {
@@ -41,7 +40,7 @@ router.get("/dashboard", async (req, res) => {
     const questions = questionData.map((question) =>
       question.get({ plain: true })
     );
-    console.log(questions);
+    console.log(questions[0].tags);
     res.render("dashboard", {
       questions,
       loggedIn: req.session.loggedIn,
