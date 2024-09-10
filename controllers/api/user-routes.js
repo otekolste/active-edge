@@ -53,17 +53,16 @@ router.post("/login", async (req, res) => {
   }
 });
 
-
-// Logout router.post("/logout", (req, res) => {
+// POST request to the /logout endpoint.
+// Logout api route that destroys the session and end response process.
+router.post("/logout", (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
-      // Destroy the session
-      res.status(204).end(); // End response process
+      res.status(204).end();
     });
   } else {
-    res.status(404).end(); // If user isn't logged in, respond with not found and end response process
+    res.status(404).end();
   }
-
-
+});
 
 module.exports = router;
