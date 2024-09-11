@@ -1,50 +1,60 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { Question, User, Answer, Tag, QuestionTag } = require("../models");
+const { Question, User, Answer, Tag, QuestionTag } = require('../models');
 
 // html Landing page route
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
   // Render the landing page (e.g., Handlebars view)
-  res.render("landing", {
-    title: "Welcome to Answer-Hive!",
+  res.render('landing', {
+    title: 'Welcome to Answer-Hive!',
   });
 });
 //html route for the login page with a simple title
-router.get("/login", (req, res) => {
-  res.render("login", {
-    title: "Login to the Answer-Hive!",
+router.get('/login', (req, res) => {
+  res.render('login', {
+    title: 'Login to the Answer-Hive!',
   });
 });
 
 //html route for sign up page
-router.get("/signup", (req, res) => {
-  res.render("signup", {
-    title: "Sign up for Answer-Hive!",
+router.get('/signup', (req, res) => {
+  res.render('signup', {
+    title: 'Sign up for Answer-Hive!',
   });
 });
 
-router.get("/dashboard", async (req, res) => {
+//html route test of newquestion.handlebars
+router.get('/newquestion', (req, res) => {
+  const user_id = req.session.user_id; // Assuming you're using sessions
+
+  res.render('newquestion', {
+    title: "What's the buzz!",
+    user_id, // Pass the user_id to the view
+  });
+});
+
+router.get('/dashboard', async (req, res) => {
   try {
     const questionData = await Question.findAll({
       include: [
         {
           model: User,
-          attributes: ["username"],
+          attributes: ['username'],
         },
         {
           model: Tag,
         },
       ],
-      order: [["createdDate", "DESC"]],
+      order: [['createdDate', 'DESC']],
     });
     const questions = questionData.map((question) =>
       question.get({ plain: true })
     );
     console.log(questions[0].tags);
-    res.render("dashboard", {
+    res.render('dashboard', {
       questions,
       loggedIn: req.session.loggedIn,
-      title: "Welcome to the Hive Bee!",
+      title: 'Welcome to the Hive Bee!',
     });
   } catch (e) {
     res.status(500).json(e);
