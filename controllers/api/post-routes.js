@@ -144,7 +144,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/byTag/:id", async (req, res) => {
+router.get("/byTag/:name", async (req, res) => {
   try {
     const questionData = await Question.findAll({
       include: [
@@ -155,7 +155,7 @@ router.get("/byTag/:id", async (req, res) => {
         {
           model: Tag,
           where: {
-            id: req.params.id,
+            name: req.params.name,
           },
         },
       ],
