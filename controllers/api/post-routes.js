@@ -125,7 +125,7 @@ router.post("/", async (req, res) => {
     }
   */
   try {
-    newQuestion = await Question.create(req.body);
+    let newQuestion = await Question.create(req.body);
     if (req.body.tagIds.length) {
       const tagArray = req.body.tagIds.map((tag_id) => {
         return {
@@ -134,10 +134,10 @@ router.post("/", async (req, res) => {
         };
       });
       let tagIds = await QuestionTag.bulkCreate(tagArray);
-      res.status(200).json(tagIds);
-    } else {
-      res.status(200).json(newQuestion);
     }
+    req.session.save(() => {
+      res.status(200).json(newQuestion);
+    });
   } catch (e) {
     console.log(e);
     res.status(400).json(e);

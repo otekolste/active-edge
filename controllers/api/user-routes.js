@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
 
     req.session.save(() => {
       // Save session, including info that user is logged in and the corresponding user ID, and return newly-created user as response
-      req.session.loggedIn = true;
+      req.session.logged_In = true;
       req.session.user_id = dbUserData.id;
       res.status(200).json(dbUserData);
     });
@@ -45,7 +45,7 @@ router.post("/login", async (req, res) => {
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
-
+      console.log("logged in: " + req.session.logged_in);
       res.json({ user: userData, message: "You are now logged in!" });
     });
   } catch (err) {
@@ -56,7 +56,7 @@ router.post("/login", async (req, res) => {
 // POST request to the /logout endpoint.
 // Logout api route that destroys the session and end response process.
 router.post("/logout", (req, res) => {
-  if (req.session.loggedIn) {
+  if (req.session.logged_in) {
     req.session.destroy(() => {
       res.status(204).end();
     });
