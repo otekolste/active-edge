@@ -1,8 +1,8 @@
-const router = require("express").Router();
-const { User } = require("../../models");
+const router = require('express').Router();
+const { User } = require('../../models');
 
 // CREATE new user
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const dbUserData = await User.create({
       // Create new User from params provided in request
@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
 
     req.session.save(() => {
       // Save session, including info that user is logged in and the corresponding user ID, and return newly-created user as response
-      req.session.logged_In = true;
+      req.session.logged_in = true;
       req.session.user_id = dbUserData.id;
       res.status(200).json(dbUserData);
     });
@@ -22,14 +22,14 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     const userData = await User.findOne({ where: { email: req.body.email } });
 
     if (!userData) {
       res
         .status(400)
-        .json({ message: "Incorrect email or password, please try again" });
+        .json({ message: 'Incorrect email or password, please try again' });
       return;
     }
 
@@ -38,15 +38,15 @@ router.post("/login", async (req, res) => {
     if (!validPassword) {
       res
         .status(400)
-        .json({ message: "Incorrect email or password, please try again" });
+        .json({ message: 'Incorrect email or password, please try again' });
       return;
     }
 
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
-      console.log("logged in: " + req.session.logged_in);
-      res.json({ user: userData, message: "You are now logged in!" });
+      console.log('logged in: ' + req.session.logged_in);
+      res.json({ user: userData, message: 'You are now logged in!' });
     });
   } catch (err) {
     res.status(400).json(err);
@@ -55,7 +55,7 @@ router.post("/login", async (req, res) => {
 
 // POST request to the /logout endpoint.
 // Logout api route that destroys the session and end response process.
-router.post("/logout", (req, res) => {
+router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {
       res.status(204).end();
