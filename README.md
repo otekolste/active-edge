@@ -23,11 +23,11 @@ A dynamic and interactive Q&A form application where users can ask questions, pr
 
 ## Features
 
-Ask Questions: Users can post questions on various topics.
-Provide Answers: Users can provide answers to questions posted by others.
-Categories and Tags: Users can categorize their questions and use tags for better organization.
-Search: Search questions by keywords or tags.
-Responsive Design: Mobile-friendly design for a seamless experience on any device.
+- Ask Questions: Users can post questions on various topics.
+- Provide Answers: Users can provide answers to questions posted by others.
+- Categories and Tags: Users can categorize their questions and use tags for better organization.
+- Search: Search questions by keywords or tags.
+- Responsive Design: Mobile-friendly design for a seamless experience on any device.
 
 ## Tech Stack
 
