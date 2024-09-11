@@ -1,0 +1,65 @@
+<!-- https://www.creative-tim.com/twcomponents/component/post-card -->
+<div class='flex bg-white shadow-lg rounded-lg'>
+  <div class='flex items-start px-4 py-6'>
+    <div class=''>
+      <h2 class="text-xl font-semibold text-gray-900">{{question.title}}</h2>
+      <h2 class='text-m font-semibold text-gray-800 -mt-1'>{{question.user.username}}</h2>
+      <small class='text-sm text-gray-700'>Posted on {{question.createdDate}}</small>
+      <div>
+        {{#each tags}}
+          <div class="text-sm"><a
+              href="/api/posts/byTag/{{id}}"
+            >{{name}}</a></div>
+        {{/each}}
+      </div>
+      <p class='mt-3 text-gray-700 text-sm'>
+          {{question.content}}
+      </p>
+    </div>
+  </div>
+</div>
+
+<section class="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased"></section>
+  <div class="max-w-2xl mx-auto px-4">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Answers</h2>
+    </div>
+    <form class="mb-6">
+        <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <label for="comment" class="sr-only">Your comment</label>
+            <textarea id="comment" rows="6"
+                class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
+                placeholder="Write a comment..." required></textarea>
+        </div>
+        <button type="submit"
+            onclick="addComment()"
+            class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-900 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+            Post comment
+        </button>
+    </form>
+    {{#each question.answers}}
+    {{> answer-card}}
+    {{/each}}
+  </div>
+
+  <script>
+    async function addComment() { // Function to add comment to post
+        event.preventDefault();
+        const comment = document.querySelector("#comment"); // Get comment content from form
+
+ if (comment) {
+            const response = await fetch('/api/answers', { // If field is filled, create new POST request to create a new comment
+                method: 'POST',
+                body: JSON.stringify({ content: comment.value, user_id: {{user_id}}, question_id: {{question.id}} }),
+                headers: { "Content-Type": "application/json" }
+            });
+
+            if (response.ok) { // Redirect back to post page to display updated comment on a success
+                document.location.replace("/questions/" + {{question.id}});
+            } else {
+                alert("An error occurred adding comment");
+            }
+        }
+    }
+
+</script>

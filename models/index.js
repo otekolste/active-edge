@@ -25,7 +25,7 @@ User.hasMany(Answer, {
   foreignKey: "user_id",
 });
 
-Answer.hasOne(User, {
+Answer.belongsTo(User, {
   foreignkey: "user_id",
 });
 

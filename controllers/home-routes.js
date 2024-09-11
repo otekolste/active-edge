@@ -63,10 +63,52 @@ router.get('/userpage', (req, res) => {
   }
 });
 
-// html route for dashboard
-router.get('/dashboard', async (req, res) => {
-  console.log('-----------------------------');
-  console.log('logged in: ' + req.session.logged_in);
+//GET a single question by ID
+router.get("/questions/:id", async (req, res) => {
+  if (!req.session.logged_in) {
+    // If user is not logged in, redirect to login page
+    res.redirect("/login");
+  } else {
+    try {
+      const questionData = await Question.findByPk(req.params.id, {
+        include: [
+          {
+            model: User,
+            attributes: ["username"],
+          },
+          {
+            model: Answer,
+            include: [
+              {
+                model: User,
+              },
+            ],
+          },
+          {
+            model: Tag,
+            attributes: ["name"],
+          },
+        ],
+      });
+      console.log(questionData);
+      if (!questionData) {
+        res.status(404).json({ message: "No question found with this id" });
+        return;
+      }
+      const question = questionData.get({ plain: true });
+      console.log(question);
+      res.render("post-details", {
+        question,
+        logged_in: req.session.logged_in,
+        user_id: req.session.user_id,
+      });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+});
+
+router.get("/dashboard", async (req, res) => {
   if (!req.session.logged_in) {
     // If user is not logged in, redirect to login page
     res.redirect('/login');
@@ -87,8 +129,7 @@ router.get('/dashboard', async (req, res) => {
       const questions = questionData.map((question) =>
         question.get({ plain: true })
       );
-      console.log(questions[0].tags);
-      res.render('dashboard', {
+      res.render("dashboard", {
         questions,
         logged_in: req.session.logged_in,
         title: 'Welcome to the Hive Bee!',
