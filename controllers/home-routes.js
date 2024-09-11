@@ -51,30 +51,41 @@ router.get('/newquestion', (req, res) => {
 });
 
 // html for userpageC
-router.get('/userpage', (req, res) => {
+router.get('/userpage', async (req, res) => {
   if (!req.session.logged_in) {
     res.redirect('/login');
   } else {
-    res.render('userpage', {
-      title: "What's the buzz!",
-      user_id: req.session.user_id, // Pass the user_id to the view
-      logged_in: req.session.logged_in,
-    });
+    try {
+      // Fetch questions associated with the logged-in user
+      const question = await Question.findAll({
+        where: { user_id: req.session.user_id }, // Filter questions by user_id
+      });
+      // Render the userpage view and pass the questions array
+      res.render('userpage', {
+        title: "What's the buzz!",
+        user_id: req.session.user_id, // Pass the user_id to the view
+        logged_in: req.session.logged_in,
+        questions: question.map((q) => q.get({ plain: true })), // Pass as plain objects
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error loading user questions.' });
+    }
   }
 });
 
 //GET a single question by ID
-router.get("/questions/:id", async (req, res) => {
+router.get('/questions/:id', async (req, res) => {
   if (!req.session.logged_in) {
     // If user is not logged in, redirect to login page
-    res.redirect("/login");
+    res.redirect('/login');
   } else {
     try {
       const questionData = await Question.findByPk(req.params.id, {
         include: [
           {
             model: User,
-            attributes: ["username"],
+            attributes: ['username'],
           },
           {
             model: Answer,
@@ -86,18 +97,18 @@ router.get("/questions/:id", async (req, res) => {
           },
           {
             model: Tag,
-            attributes: ["name"],
+            attributes: ['name'],
           },
         ],
       });
       console.log(questionData);
       if (!questionData) {
-        res.status(404).json({ message: "No question found with this id" });
+        res.status(404).json({ message: 'No question found with this id' });
         return;
       }
       const question = questionData.get({ plain: true });
       console.log(question);
-      res.render("post-details", {
+      res.render('post-details', {
         question,
         logged_in: req.session.logged_in,
         user_id: req.session.user_id,
@@ -108,7 +119,7 @@ router.get("/questions/:id", async (req, res) => {
   }
 });
 
-router.get("/dashboard", async (req, res) => {
+router.get('/dashboard', async (req, res) => {
   if (!req.session.logged_in) {
     // If user is not logged in, redirect to login page
     res.redirect('/login');
@@ -129,7 +140,7 @@ router.get("/dashboard", async (req, res) => {
       const questions = questionData.map((question) =>
         question.get({ plain: true })
       );
-      res.render("dashboard", {
+      res.render('dashboard', {
         questions,
         logged_in: req.session.logged_in,
         title: 'Welcome to the Hive Bee!',
