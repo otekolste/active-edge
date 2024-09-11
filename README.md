@@ -4,7 +4,7 @@
 
 A dynamic and interactive Q&A form application where users can ask questions, provide answers, and engage in community-driven discussions. This application facilitates knowledge sharing and community support by allowing users to interact with each other through a simple and intuitive interface.
 
-([AnswerHive](https://answer-hive-1.onrender.com/))
+[AnswerHive](https://answer-hive-1.onrender.com/)
 
 
 
@@ -59,19 +59,19 @@ Search: Use the search bar to find specific questions.
 
 ## License
 
-This project is licensed under the ([MIT](https://opensource.org/licenses/MIT)) license.
+This project is licensed under the [MIT](https://opensource.org/licenses/MIT) license.
 
 ## Contributing
 
-Olivia Te Kolste - GitHub: ([otekolste](https://github.com/otekolste))
-James Jackson - GitHub: ([jjackson0228](https://github.com/jjackson0228))
-Ashleigh Chatman - GitHub: ([Ashleighjg](https://github.com/Ashleighjg))
-Taewoo Kim - GitHub: ([twkim6440](https://github.com/twkim6440))
+- Olivia Te Kolste - GitHub: [otekolste](https://github.com/otekolste)
+- James Jackson - GitHub: [jjackson0228](https://github.com/jjackson0228)
+- Ashleigh Chatman - GitHub: [Ashleighjg](https://github.com/Ashleighjg)
+- Taewoo Kim - GitHub: [twkim6440](https://github.com/twkim6440)
 
 Portions of this code is sourced from the below:
 
-([Xpert Learning Assistant](https://bootcampspot.instructure.com/courses/6022/external_tools/313))
-([Tailwind](https://tailwindui.com/))
+- [Xpert Learning Assistant](https://bootcampspot.instructure.com/courses/6022/external_tools/313)
+- [Tailwind](https://tailwindui.com/)
 
 
 ## Tests
@@ -82,4 +82,4 @@ N/A
 
 If you have any questions you can contact us via the above Github usernames.
 
-([Code source location](https://github.com/otekolste/answer-hive))
+[Code source location](https://github.com/otekolste/answer-hive)
