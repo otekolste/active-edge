@@ -7,6 +7,27 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   const tagsData = await fetch("/api/tags");
   const tagsArray = await tagsData.json();
+  const tagNames = tagsArray.map((tag) => {
+    return {
+      label: tag.name,
+      name: tag.name,
+    };
+  });
+  console.log(tagNames);
+  autocomplete({
+    input: newTagInput,
+    fetch: function (text, update) {
+      text = text.toLowerCase();
+      var suggestions = tagNames.filter((n) =>
+        n.name.toLowerCase().startsWith(text)
+      );
+      console.log(suggestions);
+      update(suggestions);
+    },
+    onSelect: function (item) {
+      input.value = item.label;
+    },
+  });
 
   newTagInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
@@ -19,22 +40,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
     }
   });
-  /*
-
-  autocomplete({
-    input: newTagInput,
-    fetch: function (text, update) {
-      text = text.toLowerCase();
-      var suggestions = tagsArray.filter((n) =>
-        n.name.toLowerCase().startsWith(text)
-      );
-      update(suggestions);
-    },
-    onSelect: function (item) {
-      input.value = item.name;
-    },
-  });
-  */
 
   function renderTags() {
     tagsList.innerHTML = "";
