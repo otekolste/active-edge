@@ -1,33 +1,33 @@
-<html lang='en'>
+<html lang="en">
   <head>
-    <meta charset='UTF-8' />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{title}}</title>
     <link
-      href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css'
-      rel='stylesheet'
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
     />
     <!-- Tailwind CSS for styling -->
   </head>
-  <body class='bg-gray-100'>
-    <div class='container mx-auto mt-10 p-5 bg-white shadow-lg rounded-lg'>
-      <h1 class='text-2xl font-bold mb-4'>{{title}}</h1>
+  <body class="bg-gray-100">
+    <div class="container mx-auto mt-10 p-5 bg-white shadow-lg rounded-lg">
+      <h1 class="text-2xl font-bold mb-4">{{title}}</h1>
 
       <!-- Form to create a new question -->
-      <form id='questionForm' method='POST' class='space-y-4'>
+      <form id="questionForm" class="space-y-4">
         <!-- Question Title -->
         <div>
           <label
-            for='title'
-            class='block mb-2 text-md font-medium text-gray-900 dark:text-white'
+            for="title"
+            class="block mb-2 text-md font-medium text-gray-900 dark:text-white"
           >Question Title:</label>
           <input
-            type='text'
-            id='title'
-            name='title'
-            value=''
-            class='block w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-            placeholder='Enter the title of your question'
+            type="text"
+            id="title"
+            name="title"
+            value=""
+            class="block w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Enter the title of your question"
             required
           />
         </div>
@@ -35,15 +35,15 @@
         <!-- Question Body -->
         <div>
           <label
-            for='body'
-            class='block mb-2 text-md font-medium text-gray-900 dark:text-white'
+            for="body"
+            class="block mb-2 text-md font-medium text-gray-900 dark:text-white"
           >Question Body:</label>
           <textarea
-            id='body'
-            name='body'
-            rows='6'
-            class='block w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-            placeholder='Provide details for your question'
+            id="body"
+            name="body"
+            rows="6"
+            class="block w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Provide details for your question"
             required
           ></textarea>
         </div>
@@ -51,26 +51,38 @@
         <!-- Submit Button -->
         <div>
           <button
-            type='submit'
-            class='px-4 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800'
+            type="submit"
+            onclick = "addQuestion()"
+            class="px-4 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
           >Submit Question</button>
         </div>
       </form>
     </div>
     {{! form submit logic }}
     <script>
-      document.getElementById('questionForm').addEventListener('submit', async
-      function(event) { event.preventDefault(); // Get form values const title =
-      document.getElementById('title').value; const body =
-      document.getElementById('body').value; try { const response = await
-      fetch('/api/posts', { method: 'POST', headers: { 'Content-Type':
-      'application/json', }, body: JSON.stringify({ title: title, body: body,
-      }), }); if (response.ok) { // Show success message
-      document.getElementById('successMessage').classList.remove('hidden'); //
-      Optionally clear form fields document.getElementById('title').value = '';
-      document.getElementById('body').value = ''; } else { throw new
-      Error('Failed to submit'); } } catch (error) { // Show error message
-      document.getElementById('errorMessage').classList.remove('hidden'); } });
+        async function addQuestion(){ 
+          event.preventDefault(); // Get form values 
+          const title = document.getElementById('title').value; 
+          const body = document.getElementById('body').value; 
+          console.log(body);
+          try { 
+            const response = await fetch('/api/posts', { 
+              method: 'POST', 
+              headers: { 'Content-Type':'application/json' }, 
+              body: JSON.stringify({ title: title, content: body, user_id: {{user_id}}, tagIds: [] }), 
+          }); 
+          if (response.ok) { // Show success message
+            document.location.replace("/dashboard")
+          } 
+          else {
+          throw new Error('Failed to submit'); 
+          } 
+        } 
+        catch (error) { // Show error message
+            console.log(error);
+            document.getElementById('errorMessage').classList.remove('hidden'); 
+          } 
+      };
 
     </script>
   </body>
