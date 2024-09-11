@@ -14,7 +14,7 @@
       <h1 class='text-2xl font-bold mb-4'>{{title}}</h1>
 
       <!-- Form to create a new question -->
-      <form action='/questions' method='POST' class='space-y-4'>
+      <form id='questionForm' method='POST' class='space-y-4'>
         <!-- Question Title -->
         <div>
           <label
@@ -63,7 +63,7 @@
       function(event) { event.preventDefault(); // Get form values const title =
       document.getElementById('title').value; const body =
       document.getElementById('body').value; try { const response = await
-      fetch('/api/questions', { method: 'POST', headers: { 'Content-Type':
+      fetch('/api/posts', { method: 'POST', headers: { 'Content-Type':
       'application/json', }, body: JSON.stringify({ title: title, body: body,
       }), }); if (response.ok) { // Show success message
       document.getElementById('successMessage').classList.remove('hidden'); //
