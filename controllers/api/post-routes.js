@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { Answer, Question, Tag, User, QuestionTag } = require("../../models");
+const { Op } = require("sequelize");
 
 // GET all questions
 router.get("/questions", async (req, res) => {
@@ -140,6 +141,37 @@ router.post("/", async (req, res) => {
   } catch (e) {
     console.log(e);
     res.status(400).json(e);
+  }
+});
+
+router.get("/byTag/:id", async (req, res) => {
+  try {
+    const questionData = await Question.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ["username"],
+        },
+        {
+          model: Tag,
+          where: {
+            id: req.params.id,
+          },
+        },
+      ],
+      order: [["createdDate", "DESC"]],
+    });
+    const questions = questionData.map((question) =>
+      question.get({ plain: true })
+    );
+    res.render("dashboard", {
+      questions,
+      loggedIn: req.session.loggedIn,
+      title: "Welcome to the Hive Bee!",
+    });
+  } catch (e) {
+    res.status(500).json(e);
+    console.log(e);
   }
 });
 
