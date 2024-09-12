@@ -1,3 +1,6 @@
+<head>    
+    <script src="https://denis-taran.github.io/autocomplete/autocomplete.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://denis-taran.github.io/autocomplete/autocomplete.css"></head>
 <div class="container px-5 py-24 mx-auto flex flex-wrap">
     {{!-- search button and search section --}}
     <div class="lg:w-1/2 mb-10 lg:mb-0 rounded-lg overflow-hidden">
@@ -9,7 +12,7 @@
             <div class="relative w-full">
                 <input type="text" id="search-tags" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cooking, tennis, video games..." required />
             </div>
-            <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <button type="submit" onclick= "searchTag()" class="p-2.5 ms-2 text-sm font-medium text-white bg-yellow-700 rounded-lg border border-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                 </svg>
@@ -20,7 +23,7 @@
         <!-- Section for "Ask a Question" button -->
         <div class="mt-10 lg:pl-12 lg:text-left text-center">
               <h2 class="text-3xl font-bold tracking-tight text-gray-900 mb-8">Ready to ask something?</h2>
-            <a href="/newquestion" class="rounded-md bg-indigo-600 px-6 py-3 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600">
+            <a href="/newquestion" class="rounded-md bg-yellow-700 px-6 py-3 text-lg font-semibold text-white shadow-sm hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600">
                 Ask a Question
             </a>
         </div>
@@ -35,3 +38,39 @@
     {{/each}}
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", async function () {
+        const searchBar = document.getElementById("search-tags");
+        const tagsData = await fetch("/api/tags");
+        const tagsArray = await tagsData.json();
+        const tagNames = tagsArray.map((tag) => {
+            return {
+            label: tag.name,
+            name: tag.name,
+            };
+        });
+        console.log(tagNames);
+        autocomplete({
+            input: searchBar,
+            fetch: function (text, update) {
+            text = text.toLowerCase();
+            var suggestions = tagNames.filter((n) =>
+                n.name.toLowerCase().startsWith(text)
+            );
+            console.log(suggestions);
+            update(suggestions);
+            },
+            onSelect: function (item) {
+            searchBar.value = item.label;
+            },
+        });
+    });
+
+    function searchTag() {
+        event.preventDefault();
+        const tagToSearch = document.getElementById("search-tags").value;
+        window.location.href = "/api/posts/byTag/" + tagToSearch;
+
+    }
+</script>

@@ -7,9 +7,10 @@
       <small class='text-sm text-gray-500'>Posted on: {{question.createdDate}}</small>
     
         {{!-- tags --}}
-        {{#each tags}}
-          <div class="text-sm"><a
-              href="/api/posts/byTag/{{id}}"
+      <div class="flex gap-2">
+        {{#each question.tags}}
+          <div class="text-sm uppercase bg-neutral-700 text-neutral-50 rounded-md p-1 hover:bg-neutral-500"><a
+              href="/api/posts/byTag/{{name}}"
             >{{name}}</a></div>
         {{/each}}
       </div>

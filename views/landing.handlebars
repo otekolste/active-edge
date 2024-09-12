@@ -1,36 +1,21 @@
-<!-- Loop over each object in the projects array -->
-<h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Recent Questions</h2>
-{{#each posts as |post| }}
-
-      <div class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3"></div>
-      <article class="flex max-w-xl flex-col items-start justify-between">
-        <div class="flex items-center gap-x-4 text-xs">
-          <time class="text-gray-500">{{format_date question.createdDate}}</time>
-          <a href="/tag/{{tag.id}}" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">{{tag.name}}</a>
-        </div>
-
-        <div class="relative mt-8 flex items-center gap-x-4"></div>
-          <div class="text-sm leading-6">
-            <p class="font-semibold text-gray-900">
-              <a href="/user/{{user.id}}">
-                <span class="absolute inset-0"></span>
-                {{question.user.username}}
-              </a>
-            </p>
+<!-- Sourced from https://tailwindflex.com/@brandon/a-fullscreen-hero-section-->
+<div class="flex flex-wrap">
+    <div class="w-full sm:w-8/12 mb-10">
+      <div class="container mx-auto h-full sm:p-10">
+        <nav class="flex px-4 justify-between items-center">
+          <div>
+            <img src="https://image.flaticon.com/icons/svg/497/497348.svg" alt="" class="w-8">
           </div>
-        </div>
-
-        <div class="group relative">
-          <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-            <a href="/post/{{question.id}}">
-              <span class="absolute inset-0"></span>
-              {{question.content}}
-            </a>
-          </h3>
-          {{#each answers as |answer| }}
-          <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">{{answer.content}}</p>
-          {{/each}}
-        </div>
-        
-      </article>          
-{{/each}}
+        </nav>
+        <header class="container px-4 lg:flex mt-10 items-center h-full lg:mt-0">
+          <div class="w-full">
+            <h1 class="text-4xl lg:text-6xl font-bold">Welcome to <span class="text-yellow-600">Answer Hive!</span></h1>
+            <div class="w-20 h-2 bg-yellow-600 my-4"></div>
+            <p class="text-xl mb-10">Ask away and your questions shall <span class="font-bold">bee</span> answered.</p>
+            <a href="/dashboard" class="bg-gray-900 text-white text-2xl font-medium px-4 py-2 rounded shadow">Get started</a>
+          </div>
+        </header>
+      </div>
+    </div>
+    <img src="https://images.unsplash.com/photo-1580912458702-6fa698fc553e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Honeycomb" class="w-full h-48 object-cover sm:h-screen sm:w-4/12">
+  </div>
