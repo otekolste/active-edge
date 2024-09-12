@@ -43,12 +43,16 @@ Hosting: Deployed on Render
 
 AnswerHive can be used by anyone with a question that needs an answer.
 
+![Shows homepage](./pictures/home.JPG)
+
 Ask a Question: Click on the "Ask Question" button, fill in the form, and submit your question.
 
 Answer a Question: Browse through the questions, select one, and provide your answer.
+
 ![Shows New Questions Form](./pictures/question.JPG)
 
 Search: Use the search bar to find specific questions.
+
 ![Shows search bar ](./pictures/search.JPG)
 
 ## License
