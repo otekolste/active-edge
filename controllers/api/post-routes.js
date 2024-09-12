@@ -166,12 +166,25 @@ router.get("/byTag/:name", async (req, res) => {
     );
     res.render("dashboard", {
       questions,
-      loggedIn: req.session.loggedIn,
+      logged_in: req.session.logged_in,
       title: "Welcome to the Hive Bee!",
     });
   } catch (e) {
     res.status(500).json(e);
     console.log(e);
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const dbQuestion = await Question.findByPk(req.params.id);
+    if (!dbQuestion) {
+      res.status(404).json("Unable to locate question");
+    }
+    await dbQuestion.destroy();
+    res.status(200).json("Successfully deleted.");
+  } catch (e) {
+    res.status(500).json(e);
   }
 });
 

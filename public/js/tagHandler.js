@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       update(suggestions);
     },
     onSelect: function (item) {
-      input.value = item.label;
+      newTagInput.value = item.label;
     },
   });
 
