@@ -6,8 +6,6 @@ A dynamic and interactive Q&A form application where users can ask questions, pr
 
 [AnswerHive](https://answer-hive-1.onrender.com/)
 
-
-
 ## Table of Contents
 
 - [Features](#features)
@@ -18,8 +16,6 @@ A dynamic and interactive Q&A form application where users can ask questions, pr
 - [Contributing](#contributing)
 - [Tests](#tests)
 - [Questions](#questions)
-
-
 
 ## Features
 
@@ -38,15 +34,14 @@ Hosting: Deployed on Render
 
 ## Installation
 
-1. Install Node.js 
+1. Install Node.js
 2. Install npm (Node Package Manager)
 3. Set Environment Variables via .env file
 4. Run the Application by running npm start
 
 ## Usage
 
-
-AnswerHive can be used by anyone with a question that needs an answer. 
+AnswerHive can be used by anyone with a question that needs an answer.
 
 Ask a Question: Click on the "Ask Question" button, fill in the form, and submit your question.
 
@@ -55,7 +50,6 @@ Answer a Question: Browse through the questions, select one, and provide your an
 
 Search: Use the search bar to find specific questions.
 ![Shows search bar ](./pictures/search.JPG)
-
 
 ## License
 
@@ -70,9 +64,23 @@ This project is licensed under the [MIT](https://opensource.org/licenses/MIT) li
 
 Portions of this code is sourced from the below:
 
+- [Tailblocks.cc](https://tailblocks.cc/)
+- [TailwindFlex](https://tailwindflex.com/@brandon/a-fullscreen-hero-section)
+- [CreativeTim](https://www.creative-tim.com/twcomponents/component/post-card)
 - [Xpert Learning Assistant](https://bootcampspot.instructure.com/courses/6022/external_tools/313)
 - [Tailwind](https://tailwindui.com/)
 
+Packages used:
+
+- [TailwindCSS](https://tailwindcss.com/)
+- [Node.js](https://nodejs.org/en) and [Express](https://expressjs.com/)
+- [Express handlebars](https://www.npmjs.com/package/express-handlebars)
+- [Express Session](https://www.npmjs.com/package/express-session)
+- [Bcrypt](https://www.npmjs.com/package/bcrypt)
+- [Sequelize](https://www.npmjs.com/package/sequelize)
+- [PG](https://www.npmjs.com/package/pg)
+- [Dotenv](https://www.npmjs.com/package/dotenv)
+- [Autocomplete](https://www.npmjs.com/package/autocompleter)
 
 ## Tests
 
